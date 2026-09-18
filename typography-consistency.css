@@ -1,0 +1,187 @@
+/* ==========================================================================
+   Marquees.com — homepage typography consistency
+   Anirudha Talmale — 18 Sep 2026
+
+   WHY: the child stylesheet currently sets text sizes with 177 separate
+   font-size rules, each with its own hand-written clamp() and !important.
+   Some homepage section titles have a custom clamp, others have no rule at
+   all and fall back to Divi's 34px preset — which is why the headings do
+   not match each other. This file replaces those one-off values with a
+   single scale, expressed once as variables.
+
+   INSTALL: append to
+     wp-content/themes/marquees-spacing-child/style.css
+   (or paste into Divi > Theme Options > Custom CSS)
+   ========================================================================== */
+
+:root{
+  /* ---- the type scale: change a number here, it changes everywhere ---- */
+  --mq-t-hero:       clamp(2.15rem, 4.5vw,  3.2rem);   /* 34.4 -> 51.2px */
+  --mq-t-section:    clamp(1.75rem, 2.6vw,  2.25rem);  /* 28.0 -> 36.0px */
+  --mq-t-eyebrow:    clamp(0.74rem, 1.15vw, 0.84rem);  /* 11.8 -> 13.4px */
+  --mq-t-sub:        clamp(1.25rem, 1.65vw, 1.5rem);   /* 20.0 -> 24.0px */
+  --mq-t-lead:       clamp(1.15rem, 1.5vw,  1.35rem);  /* 18.4 -> 21.6px */
+  --mq-t-body:       clamp(1rem,    1.25vw, 1.0625rem);/* 16.0 -> 17.0px */
+  --mq-t-card-title: clamp(1.05rem, 1.3vw,  1.15rem);  /* 16.8 -> 18.4px */
+
+  --mq-lh-hero: 1.1;
+  --mq-lh-section: 1.2;
+  --mq-lh-sub: 1.4;
+  --mq-lh-lead: 1.5;
+  --mq-lh-body: 1.7;
+  --mq-lh-card: 1.65;
+}
+
+/* Specificity note: the existing rules use selectors as strong as
+   "html body.page-id-11 #page-container #main-content ... !important",
+   so every rule below is written to match or beat that. */
+
+/* ---------- 1. HERO ---------------------------------------------------- */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_1 .et_pb_text_0 .et_pb_text_inner > h1{
+  font-size: var(--mq-t-hero) !important;
+  line-height: var(--mq-lh-hero) !important;
+  font-weight: 500 !important;
+}
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_1 .et_pb_text_0 .et_pb_text_inner > h2{
+  font-size: var(--mq-t-eyebrow) !important;
+  line-height: 1.5 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.4px !important;
+}
+/* every hero paragraph is body copy... */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_1 .et_pb_text_0 .et_pb_text_inner > p{
+  font-size: var(--mq-t-body) !important;
+  line-height: var(--mq-lh-body) !important;
+}
+/* ...except the opening line and the closing call to action */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_1 .et_pb_text_0 .et_pb_text_inner > p:nth-of-type(1),
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_1 .et_pb_text_0 .et_pb_text_inner > p.mq-intro-cta{
+  font-size: var(--mq-t-lead) !important;
+  line-height: var(--mq-lh-lead) !important;
+}
+
+/* ---------- 2. SECTION TITLES (one size for all of them) --------------- */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_1 .et_pb_text_inner h1,      /* Event Type   */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_3 .et_pb_text_11 .et_pb_text_inner h1,     /* Marquee Style*/
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_21 .et_pb_text_inner h1,                      /* Our Team     */
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_47_tb_footer .et_pb_text_inner h1,            /* Recent Projects */
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_60_tb_footer .et_pb_text_inner h1{            /* From Our Blog   */
+  font-size: var(--mq-t-section) !important;
+  line-height: var(--mq-lh-section) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* ---------- 3. SECTION SUB-HEADINGS ------------------------------------ */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_2 .et_pb_text_inner > h2,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_47_tb_footer .et_pb_text_inner h2,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_67_tb_footer .et_pb_text_inner h2{
+  font-size: var(--mq-t-sub) !important;
+  line-height: var(--mq-lh-sub) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* ---------- 4. SECTION LEAD + BODY COPY -------------------------------- */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_2 .et_pb_text_inner > p:nth-of-type(1){
+  font-size: var(--mq-t-lead) !important;
+  line-height: var(--mq-lh-lead) !important;
+}
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_2 .et_pb_text_inner > p:nth-of-type(2),
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_2 .et_pb_text_inner > p:nth-of-type(3),
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_text_2 .et_pb_text_inner > p:nth-of-type(4),
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_12 .et_pb_text_inner p,
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_21 .et_pb_text_inner p{
+  font-size: var(--mq-t-body) !important;
+  line-height: var(--mq-lh-body) !important;
+}
+/* bold runs inside a paragraph must never change its size */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_inner p strong,
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_inner p a strong,
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_text_inner li strong{
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* ---------- 5. CARD TITLES (event type / marquee style / blog) --------- */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_2 .et_pb_group .et_pb_column > .et_pb_text:nth-child(3) .et_pb_text_inner p,
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_3 .et_pb_group .et_pb_column > .et_pb_text:nth-child(3) .et_pb_text_inner p,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_61_tb_footer .et_pb_text_inner p,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_63_tb_footer .et_pb_text_inner p,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_text_65_tb_footer .et_pb_text_inner p{
+  font-size: var(--mq-t-card-title) !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- 6. CARD BODY COPY ------------------------------------------ */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_group .et_pb_text .et_pb_text_inner p,
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_section_0_tb_footer .et_pb_group_carousel_slide .et_pb_text .et_pb_text_inner p{
+  font-size: var(--mq-card-body-size, 16px) !important;
+  line-height: var(--mq-card-body-lh, 1.65) !important;
+}
+/* keep the card titles above out of rule 6 */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_group .et_pb_column > .et_pb_text:nth-child(3) .et_pb_text_inner p{
+  font-size: var(--mq-t-card-title) !important;
+  line-height: 1.35 !important;
+}
+
+/* ---------- 6b. RECENT PROJECTS CARDS ----------------------------------
+   The carousel titles are currently the same size and weight as the body
+   text under them, and they sit in two different golds from card to card.
+   This makes them match the other card grids on the page. */
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_group_carousel_slide .et_pb_group > .et_pb_text:has(+ .et_pb_text)
+  .et_pb_text_inner p{
+  font-size: var(--mq-t-card-title) !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  color: var(--mq-gold, #b9ab85) !important;
+}
+html body.et-db #page-container #et-boc .et-l--footer
+  .et_pb_group_carousel_slide .et_pb_group > .et_pb_text + .et_pb_text
+  .et_pb_text_inner p{
+  font-size: var(--mq-card-body-size, 16px) !important;
+  line-height: var(--mq-card-body-lh, 1.65) !important;
+  font-weight: 500 !important;
+  color: #bdb7aa !important;
+}
+
+/* ---------- 7. OPTIONAL: card titles use two different golds ----------- */
+/* Delete this block if you want to keep the two tones. */
+html body.page-id-11.et-db #page-container #et-boc #main-content
+  .et_pb_section_3 .et_pb_group .et_pb_column > .et_pb_text:nth-child(3) .et_pb_text_inner p{
+  color: var(--mq-gold, #b9ab85) !important;
+}
